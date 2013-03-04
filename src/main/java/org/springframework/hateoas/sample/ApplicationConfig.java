@@ -35,7 +35,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @Configuration
 @ComponentScan
 @EnableWebMvc
-@EnableHypermediaSupport
 @Import(HypermediaConfiguration.class)
 public class ApplicationConfig extends WebMvcConfigurerAdapter {
 
