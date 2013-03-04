@@ -70,11 +70,12 @@ public class Snippets {
 	@RequestMapping("/customers/{id}/orders")
 	HttpEntity<Resources<Order>> showCustomerOrders(@PathVariable Long id) {
 
+		// @ExposesResourceFor(Customer.class)
+
 		// @Autowired
 		// EntityLinks links;
 
 		// @EnableHypermediaSupport
-		// @ExposesResourceFor(Customer.class)
 
 		Customer customer = customers.findOne(id);
 
