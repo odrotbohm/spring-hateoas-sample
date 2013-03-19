@@ -10,7 +10,7 @@
 	<name>Spring HATEOAS - Sample</name>
 
 	<properties>
-		<spring>3.2.1.RELEASE</spring>
+		<spring>3.2.2.RELEASE</spring>
 	</properties>
 
 	<dependencies>
