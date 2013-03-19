@@ -17,11 +17,6 @@ package org.springframework.hateoas.sample;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
-import org.springframework.context.annotation.Profile;
-import org.springframework.hateoas.config.EnableHypermediaSupport;
-import org.springframework.hateoas.config.EnableHypermediaSupport.HypermediaType;
-import org.springframework.hateoas.sample.ApplicationConfig.HypermediaConfiguration;
 import org.springframework.http.MediaType;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -35,8 +30,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @Configuration
 @ComponentScan
 @EnableWebMvc
-@Import(HypermediaConfiguration.class)
-public class ApplicationConfig extends WebMvcConfigurerAdapter {
+class ApplicationConfig extends WebMvcConfigurerAdapter {
 
 	/* 
 	 * (non-Javadoc)
@@ -45,17 +39,5 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter {
 	@Override
 	public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
 		configurer.defaultContentType(MediaType.APPLICATION_JSON);
-	}
-
-	/**
-	 * Separate configuration class to enable Spring Hateoas functionality if the {@code hateoas} profile is activated.
-	 * 
-	 * @author Oliver Gierke
-	 */
-	@Configuration
-	@Profile("hateoas")
-	@EnableHypermediaSupport(type = HypermediaType.HAL)
-	static class HypermediaConfiguration {
-
 	}
 }
