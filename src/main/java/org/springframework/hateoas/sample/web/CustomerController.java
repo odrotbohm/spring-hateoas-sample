@@ -15,10 +15,16 @@
  */
 package org.springframework.hateoas.sample.web;
 
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.*;
+
 import java.util.List;
+
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
+import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.sample.core.Customer;
 import org.springframework.hateoas.sample.core.Customers;
 import org.springframework.http.HttpEntity;
@@ -37,10 +43,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @Profile("web")
 @RequestMapping("/customers")
+@RequiredArgsConstructor(onConstructor = @_(@Autowired))
 public class CustomerController {
 
-	@Autowired
-	private Customers customers;
+	private final @NonNull Customers customers;
 
 	/**
 	 * Exposes a single {@link Customer}.
@@ -49,8 +55,12 @@ public class CustomerController {
 	 * @return
 	 */
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	HttpEntity<Customer> showCustomer(@PathVariable Long id) {
-		return new ResponseEntity<Customer>(customers.findOne(id), HttpStatus.OK);
+	HttpEntity<Resource<Customer>> showCustomer(@PathVariable Long id) {
+
+		Resource<Customer> resource = new Resource<>(customers.findOne(id));
+		resource.add(linkTo(methodOn(CustomerController.class).showCustomer(id)).withSelfRel());
+
+		return new ResponseEntity<>(resource, HttpStatus.OK);
 	}
 
 	/**

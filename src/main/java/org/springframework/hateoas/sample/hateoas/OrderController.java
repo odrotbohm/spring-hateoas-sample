@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,12 +47,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @Profile("hateoas")
+@RequiredArgsConstructor(onConstructor = @_(@Autowired))
 public class OrderController {
 
-	@Autowired
-	private Orders orders;
-	@Autowired
-	private Customers customers;
+	private final @NonNull Orders orders;
+	private final @NonNull Customers customers;
 
 	/**
 	 * Exposes a collection resource for {@link Order}s.

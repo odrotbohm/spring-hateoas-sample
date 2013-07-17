@@ -17,6 +17,9 @@ package org.springframework.hateoas.sample.web;
 
 import java.util.List;
 
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.hateoas.sample.core.Customer;
@@ -44,12 +47,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 @Profile("web")
+@RequiredArgsConstructor(onConstructor = @_(@Autowired))
 public class OrderController {
 
-	@Autowired
-	private Orders orders;
-	@Autowired
-	private Customers customers;
+	private final @NonNull Orders orders;
+	private final @NonNull Customers customers;
 
 	/**
 	 * Exposes all {@link Order}s.

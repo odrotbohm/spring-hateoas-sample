@@ -15,6 +15,9 @@
  */
 package org.springframework.hateoas.sample.hateoas;
 
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.hateoas.EntityLinks;
@@ -38,12 +41,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Profile("hateoas")
 @RequestMapping("/customers")
 @ExposesResourceFor(Customer.class)
+@RequiredArgsConstructor(onConstructor = @_(@Autowired))
 public class CustomerController {
 
-	@Autowired
-	private Customers customers;
-	@Autowired
-	private EntityLinks entityLinks;
+	private final @NonNull Customers customers;
+	private final @NonNull EntityLinks entityLinks;
 
 	@RequestMapping(method = RequestMethod.GET)
 	HttpEntity<Resources<Customer>> showCustomers() {
